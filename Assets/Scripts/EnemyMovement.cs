@@ -44,6 +44,7 @@ public class EnemyMovement : MonoBehaviour
         {
             StartCoroutine(Death());
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
         else
         {
