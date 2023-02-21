@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class EnemyGenerator : MonoBehaviour
 
     [SerializeField] GameObject _enemy;
     [SerializeField] private float _spawnDelay;
-    [SerializeField] private float _nextSpawnTime = 10f;
     [SerializeField] private Vector2 _spawnerRadius = new Vector2(20, 20);
 
     [Header("Valeurs pour dessiner le gizmo")]
@@ -38,12 +35,24 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
+    //IEnumerator Spawn(float delay, GameObject enemy)
+    //{
+    //    delay = _spawnDelay;
+    //    yield return new WaitForSeconds(delay);
+    //    Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
+    //    GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
+    //    StartCoroutine(Spawn(delay, enemy));
+    //}
+
     IEnumerator Spawn(float delay, GameObject enemy)
     {
-        yield return new WaitForSeconds(delay);
-        Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
-        GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
-        StartCoroutine(Spawn(delay, enemy));
+        while (true)
+        {
+            delay = Mathf.Max(_spawnDelay - Time.timeSinceLevelLoad * 0.05f, 0.1f);
+            yield return new WaitForSeconds(delay);
+            Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
+            GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
+        }
     }
 
     #endregion

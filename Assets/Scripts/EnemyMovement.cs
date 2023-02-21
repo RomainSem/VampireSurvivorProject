@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyMovement : MonoBehaviour
 {
     #region Expose
 
     [SerializeField] float _speed = 1f;
+    [SerializeField] TextMeshProUGUI _nbKills;
 
     #endregion
 
@@ -26,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        
+        _nbKills.text = _nbDeadEnemies.ToString();
     }
 
     private void FixedUpdate()
@@ -58,6 +61,7 @@ public class EnemyMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
+        _nbDeadEnemies++;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -79,6 +83,10 @@ public class EnemyMovement : MonoBehaviour
     Animator _animator;
     Vector2 _direction;
     bool _isMoving = true;
+    int _nbDeadEnemies = 0;
+
+
+    public int NbDeadEnemies { get => _nbDeadEnemies; set => _nbDeadEnemies = value; }
 
     #endregion
 }
