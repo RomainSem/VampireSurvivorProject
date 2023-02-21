@@ -26,9 +26,13 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        MoveToPlayer();
+        
     }
 
+    private void FixedUpdate()
+    {
+        MoveToPlayer();
+    }
 
     #endregion
 
@@ -39,13 +43,13 @@ public class EnemyMovement : MonoBehaviour
         if (_isMoving == false)
         {
             StartCoroutine(Death());
-            gameObject.GetComponent<EnemyMovement>().enabled=false;
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         }
         else
         {
             _direction = _player.transform.position - transform.position;
         }
-        _rigidbody.velocity = _direction * _speed;
+        _rigidbody.velocity = _direction.normalized * _speed;
 
     }
 
@@ -61,6 +65,7 @@ public class EnemyMovement : MonoBehaviour
         {
             _animator.SetBool("isDead", true);
             _isMoving = false;
+            Destroy(collision.gameObject);
         }
     }
 
