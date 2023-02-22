@@ -33,7 +33,7 @@ public class EnemyMovement : MonoBehaviour
         if (NbDeadEnemies == 5)
         {
             //_rewardPanel.SetActive(true);
-            NbDeadEnemies= 0;
+            //NbDeadEnemies= 0;
         }
 
     }
