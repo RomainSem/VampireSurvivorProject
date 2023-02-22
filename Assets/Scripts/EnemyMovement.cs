@@ -30,6 +30,12 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         //_nbKills.text = _nbDeadEnemies.ToString();
+        if (NbDeadEnemies == 5)
+        {
+            //_rewardPanel.SetActive(true);
+            NbDeadEnemies= 0;
+        }
+
     }
 
     private void FixedUpdate()
@@ -43,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        if (_isMoving == false)
+        if (_isDead == true)
         {
             StartCoroutine(Death());
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -59,8 +65,8 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Death()
     {
-        NbDeadEnemies++;
         yield return new WaitForSeconds(2);
+        NbDeadEnemies++;
         Destroy(gameObject);
     }
 
@@ -69,7 +75,7 @@ public class EnemyMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             _animator.SetBool("isDead", true);
-            _isMoving = false;
+            _isDead = true;
             Destroy(collision.gameObject);
         }
     }
@@ -82,16 +88,17 @@ public class EnemyMovement : MonoBehaviour
     Rigidbody2D _rigidbody;
     Animator _animator;
     Vector2 _direction;
-    bool _isMoving = true;
+    bool _isDead;
 
     static GameObject _nbKills;
 
     [SerializeField]
     static int _nbDeadEnemies = 0;
+
+    // Static pour que la valeur de NbDeadEnemies soit commune à tous les ennemies
     public static int NbDeadEnemies 
     { get { return _nbDeadEnemies; }
       set { TextMeshProUGUI _nbKillsUGUI = _nbKills.GetComponent<TextMeshProUGUI>();
-            Debug.Log(value);
             _nbKillsUGUI.text = value.ToString();
             _nbDeadEnemies = value; }
     }

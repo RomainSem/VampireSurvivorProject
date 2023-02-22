@@ -35,15 +35,6 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
-    //IEnumerator Spawn(float delay, GameObject enemy)
-    //{
-    //    delay = _spawnDelay;
-    //    yield return new WaitForSeconds(delay);
-    //    Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
-    //    GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
-    //    StartCoroutine(Spawn(delay, enemy));
-    //}
-
     IEnumerator Spawn(float delay, GameObject enemy)
     {
         while (true)

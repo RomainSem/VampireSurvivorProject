@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] float _speed = 5f;
+    [SerializeField] float _playerSpeed = 5f;
 
 
     #endregion
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 movement = new Vector2(horizontal, vertical);
         movement = movement.normalized;
-        _rigidbody.velocity = movement * _speed;
+        _rigidbody.velocity = movement * _playerSpeed;
     }
 
 
@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D _rigidbody;
     float horizontal;
     float vertical;
+
+    public float PlayerSpeed { get => _playerSpeed; set => _playerSpeed = value; }
 
     #endregion
 
