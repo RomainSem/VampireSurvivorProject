@@ -9,7 +9,6 @@ public class EnemyMovement : MonoBehaviour
     #region Expose
 
     [SerializeField] float _speed = 1f;
-    [SerializeField] TextMeshProUGUI _nbKills;
 
     #endregion
 
@@ -20,6 +19,7 @@ public class EnemyMovement : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _nbKills = GameObject.Find("ValueTXT");
     }
 
     void Start()
@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        _nbKills.text = _nbDeadEnemies.ToString();
+        //_nbKills.text = _nbDeadEnemies.ToString();
     }
 
     private void FixedUpdate()
@@ -59,9 +59,9 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Death()
     {
+        NbDeadEnemies++;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
-        _nbDeadEnemies++;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -83,10 +83,18 @@ public class EnemyMovement : MonoBehaviour
     Animator _animator;
     Vector2 _direction;
     bool _isMoving = true;
-    int _nbDeadEnemies = 0;
 
+    static GameObject _nbKills;
 
-    public int NbDeadEnemies { get => _nbDeadEnemies; set => _nbDeadEnemies = value; }
+    [SerializeField]
+    static int _nbDeadEnemies = 0;
+    public static int NbDeadEnemies 
+    { get { return _nbDeadEnemies; }
+      set { TextMeshProUGUI _nbKillsUGUI = _nbKills.GetComponent<TextMeshProUGUI>();
+            Debug.Log(value);
+            _nbKillsUGUI.text = value.ToString();
+            _nbDeadEnemies = value; }
+    }
 
     #endregion
 }
