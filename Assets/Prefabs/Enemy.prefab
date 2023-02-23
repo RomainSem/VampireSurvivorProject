@@ -180,6 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _rewardsPanel: {fileID: 0}
+  _nbDeadEnemies: {fileID: 11400000, guid: fa2f1b739bb7b7e49b50b7b6abb6ec2f, type: 2}
+  _bulletPrefab: {fileID: 6477351303547670562, guid: 8ad3d7414d4483c49bed9f6ee8187721, type: 3}
 --- !u!95 &1988652831
 Animator:
   serializedVersion: 5

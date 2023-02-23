@@ -6,11 +6,10 @@ public class Shooting : StateMachineBehaviour
 {
     [SerializeField]
     private GameObject _bulletPrefab;
-    [SerializeField]
-    private float _shootSpeed = 10f;
     private GameObject _bulletGroup;
     private GameObject _player;
-    //float _playerSpeed;
+    [SerializeField]
+    private float _shootSpeed = 10f;
 
     private void Awake()
     {
@@ -55,6 +54,7 @@ public class Shooting : StateMachineBehaviour
             GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = (position - _playerTransform.position).normalized * _shootSpeed;
             projectile.transform.parent = _bulletGroup.transform;
+            Destroy(projectile, 3);
         }
 
         _player.GetComponentInChildren<SpriteRenderer>().color = Color.green;

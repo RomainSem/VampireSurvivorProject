@@ -19,7 +19,6 @@ public class EnemyGenerator : MonoBehaviour
 
     private void Awake()
     {
-        _enemySpawner = gameObject;
     }
 
     private void Start()
@@ -48,15 +47,13 @@ public class EnemyGenerator : MonoBehaviour
             yield return new WaitForSeconds(delay);
             Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
             GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
-            newEnemy.transform.parent = _enemySpawner.transform;
+            newEnemy.transform.parent = transform;
         }
     }
 
     #endregion
 
     #region Private & Protected
-
-    GameObject _enemySpawner;
 
 
     #endregion

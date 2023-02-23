@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Expose
-    
+    //[SerializeField] GameObject _enemyPrefab;
+
     #endregion
 
     #region Unity Lyfecycle
 
     private void Awake()
     {
-        
     }
 
     void Start()
@@ -37,9 +37,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    //private void OpenRewardsPanel()
+    //{
+    //    EnemyMovement r = _enemyPrefab.GetComponent<EnemyMovement>();
+    //    if (r.NbDeadEnemies == 5)
+    //    {
+    //        GameObject rr = RewardsManager._rewardPanel;
+    //        rr.SetActive(true);
+    //        Time.timeScale = 0;
+    //        //NbDeadEnemies= 0;
+    //    }
+    //}
     #endregion
 
     #region Private & Protected
+
 
     #endregion
 }

@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour
     #region Expose
 
     [SerializeField] float _speed = 1f;
+    [SerializeField] IntVariable _nbDeadEnemies;
+    [SerializeField] GameObject _bulletPrefab;
 
     #endregion
 
@@ -20,6 +22,7 @@ public class EnemyMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _nbKills = GameObject.Find("ValueTXT");
+        _enemyDeadBool = GameObject.Find("RewardsManager").GetComponent<RewardsManager>().IsEnemyDead;
     }
 
     void Start()
@@ -29,12 +32,6 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        //_nbKills.text = _nbDeadEnemies.ToString();
-        if (NbDeadEnemies == 5)
-        {
-            //_rewardPanel.SetActive(true);
-            //NbDeadEnemies= 0;
-        }
 
     }
 
@@ -66,8 +63,16 @@ public class EnemyMovement : MonoBehaviour
     IEnumerator Death()
     {
         yield return new WaitForSeconds(2);
-        NbDeadEnemies++;
+        GameObject.Find("RewardsManager").GetComponent<RewardsManager>().AfterEnemyDeath.Invoke();
         Destroy(gameObject);
+        if (_enemyDeadBool)
+        {
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().velocity = transform.position.normalized * 10;
+            //projectile.transform.parent = _bulletGroup.transform;
+            Destroy(projectile, 3);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -77,6 +82,7 @@ public class EnemyMovement : MonoBehaviour
             _animator.SetBool("isDead", true);
             _isDead = true;
             Destroy(collision.gameObject);
+            _nbDeadEnemies.m_value++;
         }
     }
 
@@ -89,19 +95,20 @@ public class EnemyMovement : MonoBehaviour
     Animator _animator;
     Vector2 _direction;
     bool _isDead;
+    bool _enemyDeadBool;
 
     static GameObject _nbKills;
 
-    [SerializeField]
-    static int _nbDeadEnemies = 0;
+    //[SerializeField]
+    //static int _nbDeadEnemies = 0;
 
     // Static pour que la valeur de NbDeadEnemies soit commune à tous les ennemies
-    public static int NbDeadEnemies 
-    { get { return _nbDeadEnemies; }
-      set { TextMeshProUGUI _nbKillsUGUI = _nbKills.GetComponent<TextMeshProUGUI>();
-            _nbKillsUGUI.text = value.ToString();
-            _nbDeadEnemies = value; }
-    }
+    //public static int NbDeadEnemies 
+    //{ get { return _nbDeadEnemies; }
+    //  set { TextMeshProUGUI _nbKillsUGUI = _nbKills.GetComponent<TextMeshProUGUI>();
+    //        _nbKillsUGUI.text = value.ToString();
+    //        _nbDeadEnemies = value; }
+    //}
 
     #endregion
 }
