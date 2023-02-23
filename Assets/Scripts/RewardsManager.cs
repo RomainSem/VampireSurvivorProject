@@ -10,7 +10,7 @@ public class RewardsManager : MonoBehaviour
     public UnityEvent AfterAttack;
     public UnityEvent AfterEnemyDeath;
     [SerializeField] GameObject _rewardPanel;
-    [SerializeField] float _shootSpeed = 10;
+    [SerializeField] float _shootSpeed = 20;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] GameObject _bulletGroup;
 
@@ -64,10 +64,10 @@ public class RewardsManager : MonoBehaviour
         {
             List<Vector3> projectilePositions = new List<Vector3>()
             {
-             new Vector3(_playerTransform.position.x, _playerTransform.position.y + 1, _playerTransform.position.z),
-             new Vector3(_playerTransform.position.x, _playerTransform.position.y - 1, _playerTransform.position.z),
-             new Vector3(_playerTransform.position.x + 1, _playerTransform.position.y, _playerTransform.position.z),
-             new Vector3(_playerTransform.position.x - 1, _playerTransform.position.y, _playerTransform.position.z)
+             new Vector3(_playerTransform.position.x +1, _playerTransform.position.y + 1, _playerTransform.position.z),
+             new Vector3(_playerTransform.position.x -1, _playerTransform.position.y - 1, _playerTransform.position.z),
+             new Vector3(_playerTransform.position.x + 1, _playerTransform.position.y -1, _playerTransform.position.z),
+             new Vector3(_playerTransform.position.x - 1, _playerTransform.position.y +1, _playerTransform.position.z)
             };
 
             foreach (Vector3 position in projectilePositions)

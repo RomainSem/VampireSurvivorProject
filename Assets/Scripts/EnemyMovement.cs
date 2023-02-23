@@ -22,7 +22,6 @@ public class EnemyMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _nbKills = GameObject.Find("ValueTXT");
-        _enemyDeadBool = GameObject.Find("RewardsManager").GetComponent<RewardsManager>().IsEnemyDead;
     }
 
     void Start()
@@ -63,14 +62,15 @@ public class EnemyMovement : MonoBehaviour
     IEnumerator Death()
     {
         yield return new WaitForSeconds(2);
-        GameObject.Find("RewardsManager").GetComponent<RewardsManager>().AfterEnemyDeath.Invoke();
+        RewardsManager r = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
+        r.AfterEnemyDeath.Invoke();
         Destroy(gameObject);
-        if (_enemyDeadBool)
+        if (r.IsEnemyDead)
         {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
             GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = transform.position.normalized * 10;
-            //projectile.transform.parent = _bulletGroup.transform;
+            projectile.name = "Projectile Bonus";
             Destroy(projectile, 3);
         }
     }
@@ -95,9 +95,9 @@ public class EnemyMovement : MonoBehaviour
     Animator _animator;
     Vector2 _direction;
     bool _isDead;
-    bool _enemyDeadBool;
 
     static GameObject _nbKills;
+    private float _spawnerRadius = 5;
 
     //[SerializeField]
     //static int _nbDeadEnemies = 0;
