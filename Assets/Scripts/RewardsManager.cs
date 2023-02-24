@@ -84,7 +84,7 @@ public class RewardsManager : MonoBehaviour
     public void CreateBonusBullet()
     {
         Debug.Log("Je déclenche le bonus CreateBonusBullet");
-        IsEnemyDead = true;
+        _lastDeadEnemyRef.GetComponent<EnemyMovement>().GenerateBullet();
     }
 
     #endregion
@@ -94,6 +94,7 @@ public class RewardsManager : MonoBehaviour
     GameObject _player;
     Transform _playerTransform;
     bool _isEnemyDead;
+    public GameObject _lastDeadEnemyRef;
 
     public bool IsEnemyDead { get => _isEnemyDead; set => _isEnemyDead = value; }
 

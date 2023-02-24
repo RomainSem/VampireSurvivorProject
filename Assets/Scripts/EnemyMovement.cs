@@ -48,6 +48,7 @@ public class EnemyMovement : MonoBehaviour
         if (_isDead == true)
         {
             StartCoroutine(Death());
+            _isDead = false;
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
             GetComponent<BoxCollider2D>().enabled = false;
         }
@@ -61,18 +62,13 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator Death()
     {
+        Debug.Log("Debut de la coroutine");
         yield return new WaitForSeconds(2);
         RewardsManager r = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
+        r._lastDeadEnemyRef = gameObject;
         r.AfterEnemyDeath.Invoke();
         Destroy(gameObject);
-        if (r.IsEnemyDead)
-        {
-            Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
-            GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = transform.position.normalized * 10;
-            projectile.name = "Projectile Bonus";
-            Destroy(projectile, 3);
-        }
+        Debug.Log("Fin de la coroutine");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -84,6 +80,16 @@ public class EnemyMovement : MonoBehaviour
             Destroy(collision.gameObject);
             _nbDeadEnemies.m_value++;
         }
+    }
+
+    public void GenerateBullet()
+    {
+        Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
+        GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
+        gameObject.tag = "Dead Enemy";
+        projectile.GetComponent<Rigidbody2D>().velocity = (transform.position - GameObject.FindGameObjectWithTag("Enemy").transform.position).normalized * 10;
+        projectile.name = "Projectile Bonus";
+        Destroy(projectile, 3);
     }
 
     #endregion
