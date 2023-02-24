@@ -14,7 +14,13 @@ public class KillCount : MonoBehaviour
     private void Awake()
     {
         _killCounterText = GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+
         _killEnemy.m_value = 0;
+        
     }
 
     private void Update()
