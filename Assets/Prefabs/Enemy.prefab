@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 809654235454999135}
   - component: {fileID: 809654235454999132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 809654236075338940}
   - component: {fileID: 3572241100474640135}
   - component: {fileID: 1988652831}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _rewardsPanel: {fileID: 0}
   _nbDeadEnemies: {fileID: 11400000, guid: fa2f1b739bb7b7e49b50b7b6abb6ec2f, type: 2}
   _bulletPrefab: {fileID: 6477351303547670562, guid: 8ad3d7414d4483c49bed9f6ee8187721, type: 3}
 --- !u!95 &1988652831

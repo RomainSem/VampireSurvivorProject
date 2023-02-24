@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] GameObject _enemyGenerators;
     [SerializeField] GameObject _gameOverPanel;
+    [SerializeField] GameObject _scorePanel;
     
     #endregion
 
@@ -21,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         Time.timeScale= 1.0f;
+        IsPlayerDead = false;
     }
 
     void Update()
@@ -39,7 +41,10 @@ public class PlayerHealth : MonoBehaviour
         {
             Time.timeScale = 0;
             _enemyGenerators.SetActive(false);
+            _scorePanel.SetActive(false);
             _gameOverPanel.SetActive(true);
+            IsPlayerDead = true;
+            
         }
     }
 
@@ -47,6 +52,10 @@ public class PlayerHealth : MonoBehaviour
     #endregion
 
     #region Private & Protected
+
+    static bool _isPlayerDead = false;
+
+    public static bool IsPlayerDead { get => _isPlayerDead; set => _isPlayerDead = value; }
 
     #endregion
 }

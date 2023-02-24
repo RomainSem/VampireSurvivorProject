@@ -31,11 +31,23 @@ public class GameManager : MonoBehaviour
         {
             if (_isGameMenuOpen)
             {
-                PauseGame();
+                if (PlayerHealth.IsPlayerDead == true)
+                {
+                }
+                else
+                {
+                    ContinueGame();
+                }
             }
             else
             {
-                ContinueGame();
+                if (PlayerHealth.IsPlayerDead == true)
+                {
+                }
+                else
+                {
+                    PauseGame();
+                }
             }
         }
     }
@@ -55,7 +67,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ContinueGame()
+    public void PauseGame()
     {
         _isGameMenuOpen = true;
         _inGameMenuPanel.SetActive(true);
@@ -63,7 +75,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void PauseGame()
+    public void ContinueGame()
     {
         _inGameMenuPanel.SetActive(false);
         _isGameMenuOpen = false;
@@ -71,17 +83,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    //private void OpenRewardsPanel()
-    //{
-    //    EnemyMovement r = _enemyPrefab.GetComponent<EnemyMovement>();
-    //    if (r.NbDeadEnemies == 5)
-    //    {
-    //        GameObject rr = RewardsManager._rewardPanel;
-    //        rr.SetActive(true);
-    //        Time.timeScale = 0;
-    //        //NbDeadEnemies= 0;
-    //    }
-    //}
     #endregion
 
     #region Private & Protected
