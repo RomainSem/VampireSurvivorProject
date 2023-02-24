@@ -14,6 +14,7 @@ public class KillCount : MonoBehaviour
     private void Awake()
     {
         _killCounterText = GetComponent<TextMeshProUGUI>();
+        _killsNeededTxt = GameObject.Find("KillsNeededTxt").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -32,7 +33,11 @@ public class KillCount : MonoBehaviour
             Time.timeScale = 0;
             _killEnemy.m_value = 0;
             _nbKillsNeeded *= 2;
+            _killsNeededTxt.text = _nbKillsNeeded.ToString();
         }
     }
+
+    
     private TextMeshProUGUI _killCounterText;
+    private TextMeshProUGUI _killsNeededTxt;
 }
