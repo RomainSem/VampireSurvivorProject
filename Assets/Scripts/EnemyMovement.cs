@@ -10,7 +10,9 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] float _speed = 1f;
     [SerializeField] IntVariable _nbDeadEnemies;
+    [SerializeField] IntVariable _nbTotalDeadEnemies;
     [SerializeField] GameObject _bulletPrefab;
+    [SerializeField] int _generatedBulletSpeed = 10;
 
     #endregion
 
@@ -63,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
     IEnumerator Death()
     {
         Debug.Log("Debut de la coroutine");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         RewardsManager r = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
         r._lastDeadEnemyRef = gameObject;
         r.AfterEnemyDeath.Invoke();
@@ -79,6 +81,7 @@ public class EnemyMovement : MonoBehaviour
             _isDead = true;
             Destroy(collision.gameObject);
             _nbDeadEnemies.m_value++;
+            _nbTotalDeadEnemies.m_value++;
         }
     }
 
@@ -87,7 +90,7 @@ public class EnemyMovement : MonoBehaviour
         Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
         GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
         gameObject.tag = "Dead Enemy";
-        projectile.GetComponent<Rigidbody2D>().velocity = (transform.position - GameObject.FindGameObjectWithTag("Enemy").transform.position).normalized * 10;
+        projectile.GetComponent<Rigidbody2D>().velocity = (transform.position - GameObject.FindGameObjectWithTag("Enemy").transform.position).normalized * _generatedBulletSpeed;
         projectile.name = "Projectile Bonus";
         Destroy(projectile, 3);
     }

@@ -8,24 +8,28 @@ public class KillCount : MonoBehaviour
     [SerializeField]
     private IntVariable _killEnemy;
     [SerializeField]
+    private IntVariable _totalEnemiesKilled;
+    [SerializeField]
     private GameObject _rewardUI;
     [SerializeField] int _nbKillsNeeded = 10;
 
     private void Awake()
     {
         _killCounterText = GetComponent<TextMeshProUGUI>();
+        _totalKilledEnemies = GameObject.Find("TotalKilledEnemies").GetComponent<TextMeshProUGUI>();
         _killsNeededTxt = GameObject.Find("KillsNeededTxt").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
     {
-
         _killEnemy.m_value = 0;
-        
+        _totalEnemiesKilled.m_value = 0;
+
     }
 
     private void Update()
     {
+        _totalKilledEnemies.text = _totalEnemiesKilled.m_value.ToString();
         _killCounterText.text = _killEnemy.m_value.ToString();
         if (_killEnemy.m_value >= _nbKillsNeeded)
         {
@@ -40,4 +44,5 @@ public class KillCount : MonoBehaviour
     
     private TextMeshProUGUI _killCounterText;
     private TextMeshProUGUI _killsNeededTxt;
+    private TextMeshProUGUI _totalKilledEnemies;
 }
