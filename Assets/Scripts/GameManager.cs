@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     #region Expose
     //[SerializeField] GameObject _enemyPrefab;
+    [SerializeField] GameObject _inGameMenuPanel;
+    [SerializeField] GameObject _scorePanel;
+
 
     #endregion
 
@@ -24,10 +27,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (_isGameMenuOpen)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ContinueGame();
+            }
+        }
     }
 
-    
+
     #endregion
 
     #region Methods
@@ -35,6 +48,27 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ContinueGame()
+    {
+        _isGameMenuOpen = true;
+        _inGameMenuPanel.SetActive(true);
+        _scorePanel.SetActive(false);
+        Time.timeScale = 0;
+    }
+
+    public void PauseGame()
+    {
+        _inGameMenuPanel.SetActive(false);
+        _isGameMenuOpen = false;
+        _scorePanel.SetActive(true);
+        Time.timeScale = 1;
     }
 
     //private void OpenRewardsPanel()
@@ -52,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     #region Private & Protected
 
+    bool _isGameMenuOpen;
 
     #endregion
 }
