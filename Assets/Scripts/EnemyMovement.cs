@@ -46,6 +46,7 @@ public class EnemyMovement : MonoBehaviour
     public void GenerateBullet()
     {
         Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
+        //Vector2 position = transform.position;
         GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
         gameObject.tag = "Dead Enemy";
         projectile.GetComponent<Rigidbody2D>().velocity = (GameObject.FindGameObjectWithTag("Enemy").transform.position - transform.position).normalized * _generatedBulletSpeed;
@@ -64,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
     Transform _bonusProjectileParent;
     EnemyHealth _enemyHealthRef;
 
-    private float _spawnerRadius = 5;
+    private float _spawnerRadius = 3;
 
     #endregion
 }

@@ -23,26 +23,31 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        if (_nbTotalDeadEnemies.m_value >= 250 && !_isHealthIncremented)
+        if (_nbTotalDeadEnemies.m_value >= 300 && !_isHealthIncremented)
         {
-            _enemyHealth++;
+            Health++;
             _isHealthIncremented = true;
         }
-
-        if (IsDead)
-        {
-            StartCoroutine(Death());
-            _isDead = false;
-            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
+        Death();
+        
     }
 
     #endregion
 
     #region Methods
 
-    IEnumerator Death()
+    private void Death()
+    {
+        if (IsDead)
+        {
+            StartCoroutine(DeathCoroutine());
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            GetComponent<BoxCollider2D>().enabled = false;
+            IsDead = false;
+        }
+    }
+
+    IEnumerator DeathCoroutine()
     {
         yield return new WaitForSeconds(1.5f);
         _rewardsManager._lastDeadEnemyRef = gameObject;
@@ -54,12 +59,12 @@ public class EnemyHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            _enemyHealth--;
+            Health--;
             if (!_rewardsManager.IsBulletPiercing)
             {
                 Destroy(collision.gameObject);
             }
-            if (_enemyHealth <= 0)
+            if (Health <= 0)
             {
                 IsDead = true;
                 _animator.SetBool("isDead", true);
@@ -80,6 +85,7 @@ public class EnemyHealth : MonoBehaviour
     Animator _animator;
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
+    public int Health { get => _enemyHealth; set => _enemyHealth = value; }
 
 
     #endregion

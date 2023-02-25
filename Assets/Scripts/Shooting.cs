@@ -20,7 +20,7 @@ public class Shooting : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         RewardsManager _rewardsManager = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
-        _rewardsManager.PiercingShot.Invoke();
+        //_rewardsManager.PiercingShot.Invoke();
         Transform _playerTransform = _player.transform;
 
         // Create list of positions
