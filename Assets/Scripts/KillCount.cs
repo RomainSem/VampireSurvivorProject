@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class KillCount : MonoBehaviour
 {
-    [SerializeField]
-    private IntVariable _killEnemy;
-    [SerializeField]
-    private IntVariable _totalEnemiesKilled;
-    [SerializeField]
-    private GameObject _rewardUI;
+    [SerializeField] private IntVariable _killEnemy;
+    [SerializeField] private IntVariable _totalEnemiesKilled;
+    [SerializeField] private GameObject _rewardUI;
     [SerializeField] int _nbKillsNeeded = 10;
 
     private void Awake()

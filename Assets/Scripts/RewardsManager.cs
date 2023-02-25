@@ -9,6 +9,7 @@ public class RewardsManager : MonoBehaviour
 
     public UnityEvent AfterAttack;
     public UnityEvent AfterEnemyDeath;
+    public UnityEvent PiercingShot;
     [SerializeField] GameObject _rewardPanel;
     [SerializeField] float _shootSpeed = 20;
     [SerializeField] GameObject _bulletPrefab;
@@ -43,7 +44,6 @@ public class RewardsManager : MonoBehaviour
     public void AddAttack()
     {
         AfterAttack.AddListener(DoubleAttack);
-        Debug.Log("Je clique sur l'event DoubleAttack");
         _rewardPanel.SetActive(false);
         Time.timeScale = 1;
     }
@@ -51,16 +51,20 @@ public class RewardsManager : MonoBehaviour
     public void AddBulletAfterEnemyDeath()
     {
         AfterEnemyDeath.AddListener(CreateBonusBullet);
-        Debug.Log("Je clique sur l'event CreateBonusBullet");
+        _rewardPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void AddPiercingShot()
+    {
+        PiercingShot.AddListener(PiercingBullet);
         _rewardPanel.SetActive(false);
         Time.timeScale = 1;
     }
 
     public void DoubleAttack()
     {
-        Debug.Log("Je déclenche DoubleAttack");
-        int nbRandom = Random.Range(0, 2);
-        if (nbRandom == 0)
+        if (Random.Range(0, 2) == 0)
         {
             List<Vector3> projectilePositions = new List<Vector3>()
             {
@@ -83,9 +87,15 @@ public class RewardsManager : MonoBehaviour
 
     public void CreateBonusBullet()
     {
-        Debug.Log("Je déclenche le bonus CreateBonusBullet");
         _lastDeadEnemyRef.GetComponent<EnemyMovement>().GenerateBullet();
     }
+
+    public void PiercingBullet()
+    {
+        Debug.Log("EVENEMENT PIERCING");
+        IsBulletPiercing = true;
+    }
+        
 
     #endregion
 
@@ -94,9 +104,11 @@ public class RewardsManager : MonoBehaviour
     GameObject _player;
     Transform _playerTransform;
     bool _isEnemyDead;
+    bool _isBulletPiercing;
     public GameObject _lastDeadEnemyRef;
 
     public bool IsEnemyDead { get => _isEnemyDead; set => _isEnemyDead = value; }
+    public bool IsBulletPiercing { get => _isBulletPiercing; set => _isBulletPiercing = value; }
 
     #endregion
 }

@@ -43,7 +43,7 @@ public class EnemyGenerator : MonoBehaviour
     {
         while (true)
         {
-            delay = Mathf.Max(_spawnDelay - Time.timeSinceLevelLoad * 0.05f, 0.1f);
+            delay = Mathf.Max(_spawnDelay - Time.timeSinceLevelLoad * 0.05f, 0.05f);
             yield return new WaitForSeconds(delay);
             Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
             GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
