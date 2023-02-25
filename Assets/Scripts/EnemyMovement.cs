@@ -9,11 +9,8 @@ public class EnemyMovement : MonoBehaviour
     #region Expose
 
     [SerializeField] float _speed = 1f;
-    [SerializeField] IntVariable _nbDeadEnemies;
-    [SerializeField] IntVariable _nbTotalDeadEnemies;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] int _generatedBulletSpeed = 10;
-    [SerializeField] int _enemyHealth = 1;
 
     #endregion
 
@@ -23,21 +20,10 @@ public class EnemyMovement : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _rigidbody = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        _nbKillsTMP = GameObject.Find("ValueTXT");
         _bonusProjectileParent = GameObject.Find("BonusProjectile").transform;
-        _rewardsManager = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
-        _boxCollider = GetComponent<BoxCollider2D>();
+        _enemyHealthRef = GetComponent<EnemyHealth>();
     }
 
-    private void Update()
-    {
-        if (_nbTotalDeadEnemies.m_value >= 100 && !_isHealthIncremented)
-        {
-            _enemyHealth++;
-            _isHealthIncremented = true;
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -50,45 +36,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void MoveToPlayer()
     {
-        if (_isDead == true)
-        {
-            StartCoroutine(Death());
-            _isDead = false;
-            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
-        else
+        if (!_enemyHealthRef.IsDead)
         {
             _direction = _player.transform.position - transform.position;
-        }
-        _rigidbody.velocity = _direction.normalized * _speed;
-
-    }
-
-    IEnumerator Death()
-    {
-        yield return new WaitForSeconds(1.5f);
-        _rewardsManager._lastDeadEnemyRef = gameObject;
-        _rewardsManager.AfterEnemyDeath.Invoke();
-        Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            _enemyHealth--;
-            if (!_rewardsManager.IsBulletPiercing)
-            {
-                Destroy(collision.gameObject);
-            }
-            if (_enemyHealth <= 0)
-            {
-                _isDead = true;
-                _animator.SetBool("isDead", true);
-                _nbDeadEnemies.m_value++;
-                _nbTotalDeadEnemies.m_value++;
-            }
+            _rigidbody.velocity = _direction.normalized * _speed;
         }
     }
 
@@ -109,16 +60,11 @@ public class EnemyMovement : MonoBehaviour
 
     GameObject _player;
     Rigidbody2D _rigidbody;
-    Animator _animator;
     Vector2 _direction;
-    bool _isDead;
     Transform _bonusProjectileParent;
-    RewardsManager _rewardsManager;
-    BoxCollider2D _boxCollider;
+    EnemyHealth _enemyHealthRef;
 
-    static GameObject _nbKillsTMP;
     private float _spawnerRadius = 5;
-    private bool _isHealthIncremented;
 
     #endregion
 }

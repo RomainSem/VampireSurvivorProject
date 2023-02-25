@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Expose
-    //[SerializeField] GameObject _enemyPrefab;
     [SerializeField] GameObject _inGameMenuPanel;
     [SerializeField] GameObject _scorePanel;
 

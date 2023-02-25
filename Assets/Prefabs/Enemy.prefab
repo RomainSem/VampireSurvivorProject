@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 809654236075338941}
   - component: {fileID: 809654236075338940}
   - component: {fileID: 3572241100474640135}
+  - component: {fileID: 8973596292456476355}
   - component: {fileID: 1988652831}
   m_Layer: 8
   m_Name: Enemy
@@ -180,10 +181,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _nbDeadEnemies: {fileID: 11400000, guid: fa2f1b739bb7b7e49b50b7b6abb6ec2f, type: 2}
-  _nbTotalDeadEnemies: {fileID: 11400000, guid: f4d1b50a53bfb2b45a2b49a050446d46, type: 2}
   _bulletPrefab: {fileID: 6477351303547670562, guid: 8ad3d7414d4483c49bed9f6ee8187721, type: 3}
   _generatedBulletSpeed: 10
+--- !u!114 &8973596292456476355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809654236075338939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934bc8ab85150a14996a8eeff86043a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyHealth: 1
+  _nbDeadEnemies: {fileID: 11400000, guid: fa2f1b739bb7b7e49b50b7b6abb6ec2f, type: 2}
+  _nbTotalDeadEnemies: {fileID: 11400000, guid: f4d1b50a53bfb2b45a2b49a050446d46, type: 2}
 --- !u!95 &1988652831
 Animator:
   serializedVersion: 5

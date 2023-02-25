@@ -92,7 +92,6 @@ public class RewardsManager : MonoBehaviour
 
     public void PiercingBullet()
     {
-        Debug.Log("EVENEMENT PIERCING");
         IsBulletPiercing = true;
     }
         
