@@ -34,7 +34,10 @@ public class RewardsManager : MonoBehaviour
 
     void Update()
     {
+        if (_isDoubleAttacking)
+        {
 
+        }
     }
 
     #endregion
@@ -45,6 +48,7 @@ public class RewardsManager : MonoBehaviour
     {
         AfterAttack.AddListener(DoubleAttack);
         _rewardPanel.SetActive(false);
+        IsDoubleAttacking = true;
         Time.timeScale = 1;
     }
 
@@ -103,11 +107,13 @@ public class RewardsManager : MonoBehaviour
     GameObject _player;
     Transform _playerTransform;
     bool _isEnemyDead;
+    bool _isDoubleAttacking;
     bool _isBulletPiercing;
     public GameObject _lastDeadEnemyRef;
 
     public bool IsEnemyDead { get => _isEnemyDead; set => _isEnemyDead = value; }
     public bool IsBulletPiercing { get => _isBulletPiercing; set => _isBulletPiercing = value; }
+    public bool IsDoubleAttacking { get => _isDoubleAttacking; set => _isDoubleAttacking = value; }
 
     #endregion
 }
