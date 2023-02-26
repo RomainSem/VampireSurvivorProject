@@ -19,15 +19,21 @@ public class EnemyHealth : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _rewardsManager = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
         _animator = GetComponent<Animator>();
+        _lastHealthIncrement = _nbTotalDeadEnemies.m_value;
     }
 
     void Update()
     {
-        if (_nbTotalDeadEnemies.m_value >= 300 && !_isHealthIncremented)
+        if (_nbTotalDeadEnemies.m_value >= _lastHealthIncrement + 10)
         {
             Health++;
-            _isHealthIncremented = true;
+            _lastHealthIncrement = _nbTotalDeadEnemies.m_value;
         }
+        //if (_nbTotalDeadEnemies.m_value >= 200 && !_isHealthIncremented)
+        //{
+        //    Health++;
+        //    _isHealthIncremented = true;
+        //}
         Death();
         
     }
@@ -79,10 +85,11 @@ public class EnemyHealth : MonoBehaviour
     #region Private & Protected
 
     bool _isDead;
-    private bool _isHealthIncremented;
+    //private bool _isHealthIncremented;
     Rigidbody2D _rigidbody;
     RewardsManager _rewardsManager;
     Animator _animator;
+    int _lastHealthIncrement;
 
     public bool IsDead { get => _isDead; set => _isDead = value; }
     public int Health { get => _enemyHealth; set => _enemyHealth = value; }
