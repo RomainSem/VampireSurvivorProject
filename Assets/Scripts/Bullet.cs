@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    #region Exposed
+    //#region Exposed
 
-    [SerializeField] EnemyHealth _enemyHealthRef;
+    //[SerializeField] EnemyHealth _enemyHealthRef;
 
-    #endregion
+    //#endregion
 
-    #region Unity Lifecycle
+    //#region Unity Lifecycle
 
-    private void Awake()
-    {
-        _rewardsManagerRef = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
+    //private void Awake()
+    //{
+    //    _rewardsManagerRef = GameObject.Find("RewardsManager").GetComponent<RewardsManager>();
 
-    }
+    //}
 
-    #endregion
+    //#endregion
 
-    #region Methods
+    //#region Methods
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
@@ -38,12 +38,12 @@ public class Bullet : MonoBehaviour
     //    }
     //}
 
-    #endregion
+    //#endregion
 
-    #region Private & Protected
+    //#region Private & Protected
 
-    RewardsManager _rewardsManagerRef;
+    //RewardsManager _rewardsManagerRef;
 
 
-    #endregion
+    //#endregion
 }
