@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 835221130102282328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 835221130635135879}
   m_Father: {fileID: 0}
@@ -71,8 +71,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0015060902, y: 0}
-  m_Size: {x: 0.980541, y: 2.000898}
+  m_Offset: {x: -0.0066746115, y: -0.022919131}
+  m_Size: {x: 0.2117747, y: 0.4552246}
   m_Direction: 0
 --- !u!114 &835221130102282332
 MonoBehaviour:
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63405b13eaad274f8799af18e63dc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
+  _playerSpeed: 5
 --- !u!95 &532408213
 Animator:
   serializedVersion: 5
@@ -119,6 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b39927357b75614397b88b0a76e765c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyGenerators: {fileID: 0}
+  _gameOverPanel: {fileID: 0}
+  _scorePanel: {fileID: 0}
 --- !u!1 &835221130635135872
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +149,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 835221130102282335}
   m_RootOrder: 0
@@ -192,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 6fc66c021eec74942b4e71a3fde4dc04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

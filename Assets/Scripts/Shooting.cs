@@ -46,12 +46,12 @@ public class Shooting : StateMachineBehaviour
             Destroy(projectile, 3);
         }
 
-        _player.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+        //_player.GetComponentInChildren<SpriteRenderer>().color = Color.green;
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _player.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        //_player.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         GameObject.Find("RewardsManager").GetComponent<RewardsManager>().AfterAttack.Invoke();
 
 

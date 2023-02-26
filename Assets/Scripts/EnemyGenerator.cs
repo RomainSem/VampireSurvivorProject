@@ -6,6 +6,7 @@ public class EnemyGenerator : MonoBehaviour
     #region Expose
 
     [SerializeField] GameObject _enemy;
+    [SerializeField] Sprite[] _enemySprites;
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Vector2 _spawnerRadius = new Vector2(20, 20);
 
@@ -19,6 +20,7 @@ public class EnemyGenerator : MonoBehaviour
 
     private void Awake()
     {
+        _enemySpriteRenderer = _enemy.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -47,6 +49,8 @@ public class EnemyGenerator : MonoBehaviour
             yield return new WaitForSeconds(delay);
             Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
             GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity);
+            Sprite randomSprite = _enemySprites[Random.Range(0, _enemySprites.Length)];
+            _enemySpriteRenderer.sprite = randomSprite;
             newEnemy.transform.parent = transform;
         }
     }
@@ -55,6 +59,6 @@ public class EnemyGenerator : MonoBehaviour
 
     #region Private & Protected
 
-
+    SpriteRenderer _enemySpriteRenderer;
     #endregion
 }

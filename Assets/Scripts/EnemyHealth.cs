@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        if (_nbTotalDeadEnemies.m_value >= _lastHealthIncrement + 10)
+        if (_nbTotalDeadEnemies.m_value >= _lastHealthIncrement + 20)
         {
             Health++;
             _lastHealthIncrement = _nbTotalDeadEnemies.m_value;

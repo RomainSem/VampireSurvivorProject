@@ -22,6 +22,8 @@ public class EnemyMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _bonusProjectileParent = GameObject.Find("BonusProjectile").transform;
         _enemyHealthRef = GetComponent<EnemyHealth>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
     }
 
 
@@ -40,13 +42,21 @@ public class EnemyMovement : MonoBehaviour
         {
             _direction = _player.transform.position - transform.position;
             _rigidbody.velocity = _direction.normalized * _speed;
+            if (_direction.x > 0)
+            {
+                _isEnemyFacingRight = false;
+            }
+            else if (_direction.x < 0)
+            {
+                _isEnemyFacingRight = true;
+            }
+            _spriteRenderer.flipX = !_isEnemyFacingRight;
         }
     }
 
     public void GenerateBullet()
     {
         Vector2 position = Random.insideUnitCircle * _spawnerRadius + (Vector2)transform.position;
-        //Vector2 position = transform.position;
         GameObject projectile = Instantiate(_bulletPrefab, position, Quaternion.identity);
         gameObject.tag = "Dead Enemy";
         projectile.GetComponent<Rigidbody2D>().velocity = (GameObject.FindGameObjectWithTag("Enemy").transform.position - transform.position).normalized * _generatedBulletSpeed;
@@ -64,6 +74,8 @@ public class EnemyMovement : MonoBehaviour
     Vector2 _direction;
     Transform _bonusProjectileParent;
     EnemyHealth _enemyHealthRef;
+    SpriteRenderer _spriteRenderer;
+    bool _isEnemyFacingRight = false;
 
     private float _spawnerRadius = 3;
 

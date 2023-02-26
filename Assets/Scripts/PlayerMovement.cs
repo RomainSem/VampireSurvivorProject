@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteRenderer.flipX = false;
     }
 
     void Start()
@@ -32,9 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 movement = new Vector2(horizontal, vertical);
-        movement = movement.normalized;
-        _rigidbody.velocity = movement * _playerSpeed;
+        Move();
     }
 
 
@@ -42,14 +42,32 @@ public class PlayerMovement : MonoBehaviour
 
     #region Methods
 
+    private void Move()
+    {
+        Vector2 movement = new Vector2(horizontal, vertical);
+        movement = movement.normalized;
+        _rigidbody.velocity = movement * _playerSpeed;
+        if (movement.x > 0)
+        {
+            _isFacingRight = true;
+        }
+        else if (movement.x < 0)
+        {
+            _isFacingRight = false;
+        }
+        _spriteRenderer.flipX = !_isFacingRight;
+    }
+
 
     #endregion
 
     #region Private & Protected
 
     Rigidbody2D _rigidbody;
+    SpriteRenderer _spriteRenderer;
     float horizontal;
     float vertical;
+    bool _isFacingRight = true;
 
     public float PlayerSpeed { get => _playerSpeed; set => _playerSpeed = value; }
 
